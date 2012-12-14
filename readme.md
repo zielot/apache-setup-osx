@@ -1,14 +1,14 @@
 #Commands and Utilities for OS X Development
 
-A set of commands to set up a VirtualHost workflow on OS X's default Apache setup. This is my personal approach to a set-up, and requires a little adjustment of the Apache defaults to work.
+A set of commands to set up a VirtualHost workflow on OS X's default Apache setup. This is a fork of [DesignerMonkey's](https://github.com/designermonkey/apache-setup-osx) published apache setup. 99% of the credit goes to him; I've simply added my 1% to make it work the way I want it to work (I don't want htdocs sub-directorys; I want my logs in "logs" instead of "__logs" and I didn't think a separate script (fixpermissions) and the resulting user-entry prompt was necessary). Most of this document comes from him as well except for edits I made so that it describes the changes to the script and template. It still requires a tiny adjustment of the Apache defaults to work but the convenience for a developer is more than worth it. 
 
 One thing about the Apache install on OS X (Lion and Mountain Lion) compared to Ubuntu for instance is the difficulty in setting up VirtualHosts. I like the way there is a separate folder for `/sites-available` and `/sites-enabled` on Ubuntu and always wondered why this wasn't the same on OS X.
 
-For my setup, I have mimiced the Ubuntu approach only slightly, as I see no real need for both folders on a local development environment. Sure, if the Mac was a server for instance, I would probably do it. Well, I would actually use Mac OS X Server but that's a whole different story ;)
+For my setup, I have mimicked the Ubuntu approach only slightly, as I see no real need for both folders on a local development environment. Sure, if the Mac was a server for instance, I would probably do it. Well, I would actually use Mac OS X Server but that's a whole different story ;)
 
 ##Disclaimer and License
 
-I hold absolutely no responsibility if this fucks your setup. It's your setup, and your responsibility, so I advise you to read and understand what the two commands do to your setup. I use this every day and it works fine for me, but I may have missed some points so if you think I have, let me know and I'll add them. If you have suggestions, then please, let me know.
+I hold absolutely no responsibility if this causes your computer to crash and burn. It's your setup, and your responsibility, so I advise you to read and understand what the two commands do to your setup. I use this every day and it works fine for me, but I may have missed some points so if you think I have, let me know and I'll add them. If you have suggestions, then please, let me know.
 
 This is licensed under a [Creative Commons CC0](http://creativecommons.org/publicdomain/zero/1.0/) License.
 
