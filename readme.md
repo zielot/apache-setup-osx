@@ -16,8 +16,8 @@ This is licensed under a [Creative Commons CC0](http://creativecommons.org/publi
 
 To begin, we need to add some folders to our setup.
 
-1.	Create a `Sites` folder for every active user on the system, including the Shared user.
-2.	Create a `__logs/vhosts` folder within each `Sites` folder. This will store a log for your specific VirtualHosts.
+1.	Create a `Sites` folder for every active user on the system who will be deploying web applications.
+2.	Create a `logs/vhosts` folder within each `Sites` folder. This will store a log for your specific VirtualHosts.
 2.	Create a `vhosts` folder under `/etc/apache2`.
 3.	Copy the `template.http` file into `/etc/apache2/vhosts`.
 
@@ -29,11 +29,9 @@ Once we have those folders set up, we can move on to configuring our Apache envi
 
 1.	Open `/etc/apache2/httpd.conf` for editing.
 2.	Once open, do each of the following:
-	-	Uncomment `LoadModule php5_module libexec/apache2/libphp5.so`.
+	-	If you plan to develop in PHP then uncomment `LoadModule php5_module libexec/apache2/libphp5.so`.
 	-	Set the `ServerAdmin` to a useful value.
-	-	Set the `DocumentRoot` to "/Users/Shared/Sites" (This is a more easily accessible location than the default).
-	-	Set the `<Directory>` location from the default `DocumentRoot` to the value we just set. The result should be `<Directory "/Users/Shared/Sites">`. **Don't touch the settings for `<Directory />`**.
-	-	Within the block we changed, set `Options Indexes FollowSymLinks MultiViews`.
+	-   Look for the directive <Directory "/Library/WebServer/Documents"> and set Options line to `Options Indexes FollowSymLinks MultiViews`.
 	-	Uncomment `Include /private/etc/apache2/extra/httpd-vhosts.conf`.
 
 You've probably noticed, we've left the User and Group settings as default (`_www` and `_www`). This is because we are setting up a multi user environment here. I do this as I have a different logon to separate my work work from personal work. Also, it isn't as safe to use another user or group. It will mean permissions issues later down the line, but we can resolve them easily. If you want to change this, then you must remember to freflect the changes in the `fixperms` script.
@@ -53,10 +51,12 @@ Very simple.
 
 These commands are the secret to this quick and easy setup of VirtualHosts.
 
-1.	Add `mkvhost` and `fixperms` to `/usr/local/bin`.
+1.	Copy `mkvhost` to `/usr/local/bin`.
 2.	Run `sudo chmod +x /usr/local/bin/mkvhost /usr/local/bin/fixperms` to make them executable.
 
 ##Configure PHP
+
+If you plan to develop in PHP then make sure you followed the step above to enable the PHP module.
 
 1.	Run `sudo cp /etc/php.ini-default php.ini`.
 2.	Open `/etc/php.ini` for editing.

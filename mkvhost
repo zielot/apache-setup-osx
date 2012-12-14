@@ -12,15 +12,15 @@ fi;
 
 ### ENSURE THAT THE SCRIPT IS CALLED WITH PARAMETERS
 if [[ $1 == "" ]]; then
-	echo "Usage:   mkvhostrepo <username> <vhostname>";
-	echo "Example: mkvhostrepo username www.example.com";
+	echo "Usage:   mkvhost <username> <vhostname>";
+	echo "Example: mkvhost username www.example.com";
 	echo "         will create the virtual host for www.example.com in the correct user's Sites folder";
 	echo "         and set up a local repo";
 	exit 0;
 fi
 if [[ $2 == "" ]]; then
-	echo "Usage:   mkvhostrepo <username> <vhostname>";
-	echo "Example: mkvhostrepo www.example.com";
+	echo "Usage:   mkvhost <username> <vhostname>";
+	echo "Example: mkvhost www.example.com";
 	echo "         will create the virtual host for www.example.com in the correct user's Sites folder";
 	echo "         and set up a local repo";
 	exit 0;
@@ -70,10 +70,10 @@ else
 fi
 
 ###	CREATE THE ERROR LOG FILE
-if [[ -e ${SITES}/__logs/vhosts/${VIRTUALHOST}-error.log ]]; then
-	echo "${SITES}/__logs/vhosts/${VIRTUALHOST}-error.log already exists. Skipping.";
+if [[ -e ${SITES}/logs/vhosts/${VIRTUALHOST}-error.log ]]; then
+	echo "${SITES}/logs/vhosts/${VIRTUALHOST}-error.log already exists. Skipping.";
 else
-	touch ${SITES}/__logs/vhosts/${VIRTUALHOST}-error.log
+	touch ${SITES}/logs/vhosts/${VIRTUALHOST}-error.log
 fi
 
 
@@ -98,24 +98,39 @@ if [[ ! -e ${SITES}/${VIRTUALHOST} ]]; then
 	fi
 
 	### CREATE THE HTDOCS FOLDER
-	bool="n";
-	echo -n "Should I create ${SITES}/${VIRTUALHOST}/htdocs folder for you? ";
-	read bool;
-	if [[ ${bool} == "y" || ${bool} == "Y" || ${bool} == "yes" || ${bool} == "YES" || ${bool} == "Yes" ]]; then
-		if [[ -e ${SITES}/${VIRTUALHOST}/htdocs ]]; then
-			echo "${SITES}/${VIRTUALHOST}/htdocs already exists.";
-		else
-			mkdir -p ${SITES}/${VIRTUALHOST}/htdocs;
-			chmod -R 775 ${SITES}/${VIRTUALHOST}/htdocs;
-		fi
-	fi
+	#bool="n";
+	#echo -n "Should I create ${SITES}/${VIRTUALHOST}/htdocs folder for you? ";
+	#read bool;
+	#if [[ ${bool} == "y" || ${bool} == "Y" || ${bool} == "yes" || ${bool} == "YES" || ${bool} == "Yes" ]]; then
+	#	if [[ -e ${SITES}/${VIRTUALHOST}/htdocs ]]; then
+	#		echo "${SITES}/${VIRTUALHOST}/htdocs already exists.";
+	#	else
+	#		mkdir -p ${SITES}/${VIRTUALHOST}/htdocs;
+	#		chmod -R 775 ${SITES}/${VIRTUALHOST}/htdocs;
+	#	fi
+	#fi
 fi
 
 ### SET PERMISSIONS ON FILES AND FOLDERS
 echo -n "Should I run owner and permissions fixes on ${SITES}/${VIRTUALHOST} folder for you? ";
 read bool;
 if [[ ${bool} == "y" || ${bool} == "Y" || ${bool} == "yes" || ${bool} == "YES" || ${bool} == "Yes" ]]; then
-	fixperms ${USERNAME} ${SITES}/${VIRTUALHOST};
+	GROUP="_www";
+	DIR="${SITES}/${VIRTUALHOST}"
+	
+	echo "Setting owner:group to ${USERNAME}:${GROUP} on ${DIR}";
+	chown -R ${USERNAME}:${GROUP} ${DIR};
+
+	echo "Setting permissions on ${DIR}";
+	while IFS= read -r N;
+	do
+		chmod -R 775 "${N}" || echo "Failed on ${N}";
+	done < <(find ${DIR} -type d);
+
+	while IFS= read -r N;
+	do
+		chmod 664 "${N}" || echo "Failed on ${N}";
+	done < <(find ${DIR} -type f);
 fi
 
 

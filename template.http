@@ -3,9 +3,9 @@
 	ServerAdmin support@MHOSTNAME
 	ServerName VHOSTNAME
 
-	DocumentRoot /Users/USERNAME/Sites/VHOSTNAME/htdocs
+	DocumentRoot /Users/USERNAME/Sites/VHOSTNAME
 
-	<Directory /Users/USERNAME/Sites/VHOSTNAME/htdocs>
+	<Directory /Users/USERNAME/Sites/VHOSTNAME>
 
 		Options Indexes FollowSymLinks MultiViews Includes
 		AllowOverride All
@@ -14,13 +14,12 @@
 
 	</Directory>
 
-	ErrorLog /Users/USERNAME/Sites/__logs/vhosts/VHOSTNAME-error.log
+	ErrorLog /Users/USERNAME/Sites/logs/vhosts/VHOSTNAME-error.log
 
 	# Possible values include: debug, info, notice, warn, error, crit,
 	# alert, emerg.
 	LogLevel warn
 
-	CustomLog /Users/USERNAME/Sites/__logs/vhosts/VHOSTNAME-error.log combined
+	CustomLog /Users/USERNAME/Sites/logs/vhosts/VHOSTNAME-error.log combined
 
 </VirtualHost>
-
