@@ -7,10 +7,10 @@
 
 	<Directory /Users/USERNAME/Sites/VHOSTNAME>
 
-		Options Indexes FollowSymLinks MultiViews Includes
+		Options Indexes FollowSymLinks ExecCGI MultiViews
 		AllowOverride All
-		Order allow,deny
-		allow from all
+		Order Allow,Deny
+		Allow From All
 
 	</Directory>
 
