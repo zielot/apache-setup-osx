@@ -1,5 +1,7 @@
 #Commands and Utilities for OS X Development
 
+NEED TO REMOVE SOMEThing here ...mcr
+
 A set of commands to set up a VirtualHost workflow on OS X's default Apache setup. This is a fork of [DesignerMonkey's](https://github.com/designermonkey/apache-setup-osx) published apache setup. 99% of the credit goes to him; I've simply added my 1% to make it work the way I want it to work (I don't want htdocs sub-directorys; I want my logs in "logs" instead of "__logs" and I didn't think a separate script (fixpermissions) and the resulting user-entry prompt was necessary). Most of this document comes from him as well except for edits I made so that it describes the changes to the script and template. It still requires a tiny adjustment of the Apache defaults to work but the convenience for a developer is more than worth it. 
 
 One thing about the Apache install on OS X (Lion and Mountain Lion) compared to Ubuntu for instance is the difficulty in setting up VirtualHosts. I like the way there is a separate folder for `/sites-available` and `/sites-enabled` on Ubuntu and always wondered why this wasn't the same on OS X.
